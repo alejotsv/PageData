@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -14,7 +15,17 @@ public class PageData extends JFrame implements ActionListener, Runnable {
         JButton readPage, clearPage, quitLoading;
         JLabel status;
 
-        public PageData
+        public PageData() {
+            super("Page Data");
+            setDefaultCloseOperation(EXIT_ON_CLOSE);
+            setLookAndFeel();
+            setLayout(new GridLayout(10,1));
+
+            JPanel first = new JPanel();
+            first.setLayout(new FlowLayout(FlowLayout.RIGHT));
+            JLabel urlLabel = new JLabel("URL: ");
+
+
 
     }
 
@@ -27,4 +38,25 @@ public class PageData extends JFrame implements ActionListener, Runnable {
     public void run() {
 
     }
+
+    private static void setLookAndFeel(){
+        try {
+            // Set cross-platform Java L&F (also called "Nimbus")
+            UIManager.setLookAndFeel("javax.swing.plaf.metal.NimbusLookAndFeel");
+        }
+        catch (UnsupportedLookAndFeelException e) {
+            System.out.println(e.getMessage());
+        }
+        catch (ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        catch (InstantiationException e) {
+            System.out.println(e.getMessage());
+        }
+        catch (IllegalAccessException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
 }
