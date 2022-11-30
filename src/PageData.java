@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class PageData extends JFrame implements ActionListener, Runnable {
@@ -72,13 +73,39 @@ public class PageData extends JFrame implements ActionListener, Runnable {
             status = new JLabel("Enter a URL address to check.");
             last.add(status);
             add(last);
-
-
+            pack();
+            setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-
+        Object source = actionEvent.getSource();
+        if(source == readPage){
+            try {
+                page = new URL(url.getText());
+                if (runner == null){
+                    runner = new Thread(this);
+                    runner.start();
+                }
+                quitLoading.setEnabled(true);
+                readPage.setEnabled(false);
+            } catch (MalformedURLException e){
+                status.setText("Bad URL: " + page);
+            }
+        } else if(source == clearPage){
+            for(int i=0; i<7; i++){
+                header[i].setText("");
+                quitLoading.setEnabled(false);
+                readPage.setEnabled(true);
+                clearPage.setEnabled(false);
+            }
+        } else if(source == quitLoading){
+            runner = null;
+            url.setText("");
+            quitLoading.setEnabled(false);
+            readPage.setEnabled(true);
+            clearPage.setEnabled(false);
+        }
     }
 
     @Override
