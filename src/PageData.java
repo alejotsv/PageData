@@ -149,4 +149,8 @@ public class PageData extends JFrame implements ActionListener, Runnable {
 
     }
 
+    public static void main(String[] args) {
+        PageData frame = new PageData();
+    }
+
 }
